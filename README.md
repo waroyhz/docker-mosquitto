@@ -1,15 +1,20 @@
+
 docker-mosquitto-auth
 ================
 
-Docker image for mosquitto with authorization
+## Please change the auth-plug.conf file to avoid authorization failure
+
+ * About authorization [mosquitto-auth-plug](https://github.com/jpmens/mosquitto-auth-plug)
+
+
+docker-mosquitto
+================
+
+Docker image for mosquitto
 
 [![Docker Stars](https://img.shields.io/docker/stars/toke/mosquitto.svg)](https://hub.docker.com/r/toke/mosquitto/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/toke/mosquitto.svg)](https://hub.docker.com/r/toke/mosquitto/)
 [![](https://images.microbadger.com/badges/image/toke/mosquitto.svg)](https://microbadger.com/images/toke/mosquitto "Get your own image badge on microbadger.com")
-
-### Please change the auth-plug.conf file to avoid authorization failure
-
- * [mosquitto-auth-plug](https://github.com/jpmens/mosquitto-auth-plug)
 
 ## Run
 
