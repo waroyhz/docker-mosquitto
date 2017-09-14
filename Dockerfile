@@ -24,6 +24,27 @@ RUN apt-get update && apt-get install -y wget && \
 RUN mkdir -p /mqtt/config /mqtt/data /mqtt/log
 COPY config /mqtt/config
 RUN chown -R mosquitto:mosquitto /mqtt
+
+# Download the support needed to compile libary
+RUN apt-get install -y git g++ gcc make libssl-dev libcurl4-openssl-dev libc-ares-dev uuid-dev libwebsockets-dev wget
+
+# Download mosquitto 1.4.14 source code and compile mosquitto auth plug
+RUN export MQTTVER=1.4.14 &&\
+    git clone https://github.com/jpmens/mosquitto-auth-plug.git &&\
+    wget https://mosquitto.org/files/source/mosquitto-${MQTTVER}.tar.gz && \
+    tar -zxvf mosquitto-${MQTTVER}.tar.gz&&\
+    cd mosquitto-${MQTTVER} &&\
+    sed -i 's/WITH_WEBSOCKETS:=no/WITH_WEBSOCKETS:=yes/g' config.mk &&\
+    make && make install &&\
+    cd /mosquitto-auth-plug &&\
+    cp config.mk.in config.mk &&\
+    sed -i 's/BACKEND_MYSQL ?= yes/BACKEND_MYSQL ?= no/g' config.mk &&\
+    sed -i 's/BACKEND_HTTP ?= no/BACKEND_HTTP ?= yes/g' config.mk &&\
+    sed -i 's/MOSQUITTO_SRC =/MOSQUITTO_SRC =\/mosquitto-${MQTTVER}/g' config.mk &&\
+    make && \
+    cp auth-plug.so /mqtt &&\
+    cd /
+
 VOLUME ["/mqtt/config", "/mqtt/data", "/mqtt/log"]
 
 
