@@ -4,7 +4,7 @@ docker-mosquitto-auth
 
 ## Please change the auth-plug.conf file to avoid authorization failure
 
- * About authorization [mosquitto-auth-plug](https://github.com/jpmens/mosquitto-auth-plug)
+ * About authorization plugin [mosquitto-auth-plug](https://github.com/jpmens/mosquitto-auth-plug)
 
 
 docker-mosquitto
